@@ -2,7 +2,7 @@ import pygame
 import os
 pygame.font.init()
 pygame.mixer.init()
-WIDTH, HEIGHT = 900,500
+WIDTH, HEIGHT = 1550,850
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 WHITE = (255,255,255)
@@ -23,8 +23,8 @@ WINNER_FONT = pygame.font.SysFont("comicsans", 100)
 
 FPS = 60
 VEL=5
-BULLET_VEL=10
-SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55,40
+BULLET_VEL=7
+SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 80,60
 MAX_BULLETS=3
 
 YELLOW_HIT=pygame.USEREVENT + 1
@@ -40,7 +40,10 @@ RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(REDS_PACESHIP_IMA
 
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "space.png")), (WIDTH, HEIGHT))
 
-def draw_window(red,yellow, red_bullets, yellow_bullets, red_health, yellow_health):
+#def draw_window1():
+
+
+def draw_window2(red,yellow, red_bullets, yellow_bullets, red_health, yellow_health):
     WIN.blit(SPACE,(0,0))
     pygame.draw.rect(WIN, BLACK, BORDER )
 
@@ -104,7 +107,8 @@ def draw_winner(text):
     pygame.time.delay(5000)
 
 def main():
-    red = pygame.Rect(700,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
+    #Chnages starting positions of spaceship
+    red = pygame.Rect(1300,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
     
     red_bullets=[]
@@ -151,7 +155,7 @@ def main():
 
         handle_bullets(yellow_bullets, red_bullets, yellow, red)
 
-        draw_window(red,yellow, red_bullets, yellow_bullets,red_health , yellow_health)            
+        draw_window2(red,yellow, red_bullets, yellow_bullets,red_health , yellow_health)            
       
   
 
