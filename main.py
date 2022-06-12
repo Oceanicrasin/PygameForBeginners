@@ -20,6 +20,7 @@ BULLET_FIRE_SOUND = pygame.mixer.Sound("Assets/shoot.wav")
 
 HEALTH_FONT = pygame.font.SysFont("comicsans", 40)
 WINNER_FONT = pygame.font.SysFont("comicsans", 100)
+#DISCLAIMER_FONT = pygame.font.SysFont("comicsans", 40)
 
 FPS = 60
 VEL=5
@@ -29,6 +30,11 @@ MAX_BULLETS=3
 
 YELLOW_HIT=pygame.USEREVENT + 1
 RED_HIT = pygame.USEREVENT + 2
+
+START_BUTTON_IMAGE = pygame.image.load("Assets/start_btn.png")
+START_BUTTON = pygame.transform.scale(START_BUTTON_IMAGE,(200,100))
+START_BUTTON_RECTANGLE = pygame.Rect(WIDTH-200,HEIGHT-100,200,100)
+
 
 YELLOW_SPACESHIP_IMAGE=pygame.image.load(
     os.path.join("Assets", "spaceship_yellow.png"))
@@ -40,7 +46,11 @@ RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(REDS_PACESHIP_IMA
 
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "space.png")), (WIDTH, HEIGHT))
 
-#def draw_window1():
+def draw_window1():
+    WIN.blit(SPACE,(0,0))
+   # WIN.blit()
+    WIN.blit(START_BUTTON,(START_BUTTON_RECTANGLE.x,START_BUTTON_RECTANGLE.y))
+    pygame.display.update()
 
 
 def draw_window2(red,yellow, red_bullets, yellow_bullets, red_health, yellow_health):
@@ -105,8 +115,23 @@ def draw_winner(text):
 
     pygame.display.update()
     pygame.time.delay(5000)
-
+start = True
 def main():
+    run = True
+    global start
+    clock=pygame.time.Clock()
+    while start:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                start = False 
+                pygame.quit()
+        pos = pygame.mouse.get_pos()
+        if START_BUTTON_RECTANGLE.collidepoint(pos):   
+            if pygame.mouse.get_pressed()[0]   == 1:
+                print("Clicked")
+                start = False
+        draw_window1()
     #Chnages starting positions of spaceship
     red = pygame.Rect(1300,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100,300,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
@@ -116,9 +141,7 @@ def main():
 
     red_health = 10
     yellow_health = 10
-    clock=pygame.time.Clock()
-    run = True
-    while run:
+    while run == True:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
